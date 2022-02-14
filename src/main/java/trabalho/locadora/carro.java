@@ -8,7 +8,7 @@ public class carro {
     String modelo;
     String placa;
     String marca;
-    String cor;
+    String dataAlugado;
     String dataRetorno;
     
     static int quantidaCarros;
@@ -59,7 +59,7 @@ public carro(String dados) {
                             input = input + dados.charAt(i);
                         }   input = input.substring(0, input.length() - 1);
                         i++;
-                        cor = input;
+                        dataAlugado = input;
                         input = "";
                         codigo = 5;
                     }

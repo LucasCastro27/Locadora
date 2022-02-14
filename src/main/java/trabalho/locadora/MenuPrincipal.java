@@ -5,6 +5,7 @@
 package trabalho.locadora;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -216,9 +217,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu9.setText("login");
-        jMenu9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jMenu9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jMenu9.setText("Login");
+        jMenu9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);

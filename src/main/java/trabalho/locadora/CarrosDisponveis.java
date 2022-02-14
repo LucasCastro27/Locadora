@@ -2,6 +2,11 @@ package trabalho.locadora;
 
 import java.util.*;
 import java.io.*;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,18 +15,26 @@ import java.io.*;
 public class CarrosDisponveis extends javax.swing.JInternalFrame {
 
     String modelos[] = {};
+    
     ArrayList<carro> Frota;
+    ArrayList<carro> todosCarros;
+    
+    DefaultListModel<String> Lista;
+    
+    int totalCarros = 0;
+    int numeroCarro = 0;
 
     public CarrosDisponveis() throws FileNotFoundException {
         
         //abre o arquivo de txt
         Frota = new ArrayList<>();
+        todosCarros = new ArrayList();
         File arquivo = new File("carros.txt");
         Scanner leitura = new Scanner(arquivo);
         
         //variaveis aux
         String dados = "";
-        int numeroCarro = 0;
+       
         int contador = 0;
         
         //salva todos os objetos do arquivo txt numa lista de carros chamada frota
@@ -32,6 +45,8 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             if (contador == 8) {
                 contador = 0;
                 carro veiculo = new carro(dados);
+                todosCarros.add(veiculo);
+                totalCarros++;
                 if (veiculo.disponivel == 1) {
                     Frota.add(veiculo);
                     numeroCarro++;
@@ -52,7 +67,6 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         //inicia os valores que seram exibidos na interface vizual 
         String aux = "";
         marca.setText(Frota.get(0).marca);
-        cor.setText(Frota.get(0).cor);
         placa.setText(Frota.get(0).placa);
         aux = Frota.get(0).kmAndado + "";
         km.setText(aux);
@@ -80,7 +94,6 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -88,8 +101,6 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         placa = new javax.swing.JTextPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        cor = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         km = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -101,6 +112,7 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        ALUGAR = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -117,30 +129,30 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         });
         jScrollPane7.setViewportView(jList1);
 
-        jLabel1.setText("placa:");
-
-        jLabel2.setText("Cor:");
+        jLabel1.setText("Placa:");
 
         jLabel3.setText("Marca:");
 
-        jLabel5.setText("Klometragem:");
+        jLabel5.setText("KM:");
 
-        jLabel4.setText("preço:");
+        jLabel4.setText("Preço:");
 
-        jLabel6.setText("disponibilidade:");
+        jLabel6.setText("Disponibilidade:");
 
         jLabel7.setText("Organizar por:");
 
+        placa.setEditable(false);
         jScrollPane1.setViewportView(placa);
 
-        jScrollPane2.setViewportView(cor);
-
+        km.setEditable(false);
         jScrollPane3.setViewportView(km);
 
+        marca.setEditable(false);
         jScrollPane4.setViewportView(marca);
 
         jScrollPane5.setViewportView(disponivel);
 
+        preco.setEditable(false);
         jScrollPane6.setViewportView(preco);
 
         jButton1.setText("Klometragem");
@@ -149,6 +161,13 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
 
         jButton3.setText("Alfabetica");
 
+        ALUGAR.setText("ALUGAR");
+        ALUGAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ALUGARActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,42 +175,42 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ALUGAR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1))
-                        .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 36, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane3))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3))
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jButton3)))
+                        .addGap(0, 14, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,9 +221,7 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -221,12 +238,13 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
+                .addGap(17, 17, 17)
+                .addComponent(ALUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -243,12 +261,12 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
         );
 
         pack();
@@ -259,7 +277,6 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         
         String aux = "";
         marca.setText(Frota.get(jList1.getSelectedIndex()).marca);
-        cor.setText(Frota.get(jList1.getSelectedIndex()).cor);
         placa.setText(Frota.get(jList1.getSelectedIndex()).placa);
         aux = Frota.get(jList1.getSelectedIndex()).kmAndado + "";
         km.setText(aux);
@@ -273,15 +290,76 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             disponivel.setText("sim");
     }//GEN-LAST:event_jList1ValueChanged
 
+    private void ALUGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ALUGARActionPerformed
+        // Altera a disponibilidade de Sim para Não:
+        
+        String hoje = JOptionPane.showInputDialog("Insira a data que o carro será alugado (dd/mm/aa)");
+        
+        
+        String data = JOptionPane.showInputDialog("Qual será a data de retorno do veículo? (dd/mm/aa)");
+        
+        GerenciaPagamentos gp = new GerenciaPagamentos();
+        float preco = 0;
+        try {
+            preco = gp.calculaPreco(hoje, data, Frota.get(jList1.getSelectedIndex()).preco);
+        } catch (ParseException ex) {
+            Logger.getLogger(CarrosDisponveis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       int resp =  JOptionPane.showConfirmDialog(null, "O aluguel neste período ficará no valor de " + preco + "R$");
+        if(resp == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Aluguel Efetuado!");
+        }else{
+            return;
+        }
+        
+        Frota.get(jList1.getSelectedIndex()).dataAlugado = hoje;
+        Frota.get(jList1.getSelectedIndex()).dataRetorno = data;
+        Frota.get(jList1.getSelectedIndex()).disponivel = 0;             
+        
+        
+        //Salva a aleração em arquivo
+        String dados="";
+        
+        for(int i=0;i<totalCarros;i++)
+        {
+            dados=dados+"placa="+todosCarros.get(i).placa+'\n';
+            dados=dados+"marca="+todosCarros.get(i).marca+'\n';
+            dados=dados+"preco="+todosCarros.get(i).preco+'\n';
+            dados=dados+"KmAndado="+todosCarros.get(i).kmAndado+'\n';
+            dados=dados+"cor="+todosCarros.get(i).dataAlugado+'\n';
+            dados=dados+"dataRetorno="+todosCarros.get(i).dataRetorno+'\n';
+            dados=dados+"disponivel="+todosCarros.get(i).disponivel+'\n';
+            dados=dados+"modelo="+todosCarros.get(i).modelo+'\n';
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("carros.txt"));
+            
+            
+            writer.write(dados);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Frota.remove(jList1.getSelectedIndex());
+        numeroCarro--;
+
+        Lista= new DefaultListModel<>();
+        for (int i = 0; i < numeroCarro; i++) {
+            Lista.addElement(Frota.get(i).modelo);
+        }
+        jList1.setModel(Lista);
+    }//GEN-LAST:event_ALUGARActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane cor;
+    private javax.swing.JButton ALUGAR;
     private javax.swing.JTextPane disponivel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -290,7 +368,6 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;

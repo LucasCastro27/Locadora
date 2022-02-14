@@ -10,7 +10,10 @@ package trabalho.locadora;
  */
 public final class Cliente extends Pessoa {
     String carroAlugado;
-    String dataEntrega;
+    
+    String dataEntrega;//define a data que o cliente precisa entregar o carro
+    
+    String dataEntregou; //define o dia que o cliente entregou o carro
     float preco;
 
 

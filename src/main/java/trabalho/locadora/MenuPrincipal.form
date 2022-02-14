@@ -163,9 +163,8 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="login"/>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="horizontalAlignment" type="int" value="11"/>
           </Properties>
         </Menu>
       </SubComponents>

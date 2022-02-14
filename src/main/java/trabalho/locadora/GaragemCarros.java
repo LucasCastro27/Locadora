@@ -59,7 +59,6 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         // Inicia a Parte das informações com os dados do carro no primeiro indice
         String aux = "";
         marca.setText(Frota.get(0).marca);
-        cor.setText(Frota.get(0).cor);
         placa.setText(Frota.get(0).placa);
         aux = Frota.get(0).kmAndado + "";
         km.setText(aux);
@@ -86,15 +85,12 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         jList1 = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane_placa_ = new javax.swing.JScrollPane();
         placa = new javax.swing.JTextPane();
-        jScrollPane_cor_ = new javax.swing.JScrollPane();
-        cor = new javax.swing.JTextPane();
         jScrollPane_km_ = new javax.swing.JScrollPane();
         km = new javax.swing.JTextPane();
         jScrollPane_marca_ = new javax.swing.JScrollPane();
@@ -122,21 +118,17 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jLabel1.setText("placa:");
-
-        jLabel2.setText("Cor:");
+        jLabel1.setText("Placa:");
 
         jLabel3.setText("Marca:");
 
-        jLabel4.setText("Klometragem:");
+        jLabel4.setText("KM:");
 
-        jLabel5.setText("preço:");
+        jLabel5.setText("Preço:");
 
-        jLabel6.setText("disponibilidade:");
+        jLabel6.setText("Disponibilidade:");
 
         jScrollPane_placa_.setViewportView(placa);
-
-        jScrollPane_cor_.setViewportView(cor);
 
         jScrollPane_km_.setViewportView(km);
 
@@ -182,25 +174,22 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane_cor_, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                            .addComponent(jScrollPane_marca_, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane_marca_, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                             .addComponent(jScrollPane_placa_))
                         .addGap(27, 27, 27)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 36, Short.MAX_VALUE))
+                                .addComponent(jScrollPane_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane_km_)
-                                .addContainerGap())))))
+                                .addComponent(jScrollPane_km_, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 36, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jButtonEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,9 +206,7 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane_placa_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane_cor_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane_marca_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -255,13 +242,13 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -275,7 +262,6 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         String aux = "";
         selecionado=jList1.getSelectedIndex();
         marca.setText(Frota.get(jList1.getSelectedIndex()).marca);
-        cor.setText(Frota.get(jList1.getSelectedIndex()).cor);
         placa.setText(Frota.get(jList1.getSelectedIndex()).placa);
         aux = Frota.get(jList1.getSelectedIndex()).kmAndado + "";
         km.setText(aux);
@@ -297,7 +283,6 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
         else 
             Frota.get(selecionado).disponivel=0;
         
-        Frota.get(selecionado).cor=cor.getText();
         Frota.get(selecionado).placa=placa.getText();
         Frota.get(selecionado).marca=marca.getText();
         
@@ -319,7 +304,7 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
             dados=dados+"marca="+Frota.get(i).marca+'\n';
             dados=dados+"preco="+Frota.get(i).preco+'\n';
             dados=dados+"KmAndado="+Frota.get(i).kmAndado+'\n';
-            dados=dados+"cor="+Frota.get(i).cor+'\n';
+            dados=dados+"cor="+Frota.get(i).dataAlugado+'\n';
             dados=dados+"dataRetorno="+Frota.get(i).dataRetorno+'\n';
             dados=dados+"disponivel="+Frota.get(i).disponivel+'\n';
             dados=dados+"modelo="+Frota.get(i).modelo+'\n';
@@ -351,13 +336,11 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane cor;
     private javax.swing.JTextPane disponivel;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVender;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -365,7 +348,6 @@ public class GaragemCarros extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane_cor_;
     private javax.swing.JScrollPane jScrollPane_disponivel_;
     private javax.swing.JScrollPane jScrollPane_km_;
     private javax.swing.JScrollPane jScrollPane_marca_;

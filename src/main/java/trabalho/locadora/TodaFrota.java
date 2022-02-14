@@ -2,6 +2,11 @@ package trabalho.locadora;
 
 import java.util.*;
 import java.io.*;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +18,8 @@ public class TodaFrota extends javax.swing.JInternalFrame {
     ArrayList<carro> Frota;
     int numeroCarro;
 
+    DefaultListModel<String> Lista;
+    
     public TodaFrota() throws FileNotFoundException {
 
         Frota = new ArrayList<>();
@@ -44,7 +51,7 @@ public class TodaFrota extends javax.swing.JInternalFrame {
 
         String aux = "";
         marca.setText(Frota.get(0).marca);
-        cor.setText(Frota.get(0).cor);
+        alugado.setText(Frota.get(0).dataAlugado);
         placa.setText(Frota.get(0).placa);
         aux = Frota.get(0).kmAndado + "";
         km.setText(aux);
@@ -74,15 +81,12 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         placa = new javax.swing.JTextPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        cor = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
         km = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -95,6 +99,12 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        registrar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        dataText = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        alugado = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -111,28 +121,30 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jLabel1.setText("placa:");
-
-        jLabel2.setText("Cor:");
+        jLabel1.setText("Placa:");
 
         jLabel3.setText("Marca:");
 
-        jLabel4.setText("Klometragem:");
+        jLabel4.setText("KM:");
 
-        jLabel5.setText("preço:");
+        jLabel5.setText("Preço:");
 
-        jLabel6.setText("disponibilidade:");
+        jLabel6.setText("Disponibilidade:");
 
+        placa.setEditable(false);
         jScrollPane2.setViewportView(placa);
 
-        jScrollPane3.setViewportView(cor);
-
+        km.setEditable(false);
         jScrollPane4.setViewportView(km);
 
+        marca.setEditable(false);
         jScrollPane5.setViewportView(marca);
 
+        disponivel.setEditable(false);
+        disponivel.setAutoscrolls(false);
         jScrollPane6.setViewportView(disponivel);
 
+        preco.setEditable(false);
         jScrollPane8.setViewportView(preco);
 
         jButton1.setText("Klometragem");
@@ -148,6 +160,51 @@ public class TodaFrota extends javax.swing.JInternalFrame {
 
         jButton3.setText("Alfabetica");
 
+        registrar.setText("REGISTRAR DEVOLUÇÃO");
+        registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Retorno:");
+
+        dataText.setText("Data");
+
+        jLabel11.setText("Alugado:");
+
+        alugado.setText("Data");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataText))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(alugado)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(alugado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(dataText))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,53 +214,59 @@ public class TodaFrota extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2))
-                        .addGap(27, 27, 27)
+                            .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4)
-                                .addContainerGap())))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3))
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 108, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(40, 40, 40)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -218,14 +281,16 @@ public class TodaFrota extends javax.swing.JInternalFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -237,17 +302,17 @@ public class TodaFrota extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -267,7 +332,7 @@ public class TodaFrota extends javax.swing.JInternalFrame {
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         String aux = "";
         marca.setText(Frota.get(jList1.getSelectedIndex()).marca);
-        cor.setText(Frota.get(jList1.getSelectedIndex()).cor);
+        alugado.setText(Frota.get(jList1.getSelectedIndex()).dataAlugado);
         placa.setText(Frota.get(jList1.getSelectedIndex()).placa);
         aux = Frota.get(jList1.getSelectedIndex()).kmAndado + "";
         km.setText(aux);
@@ -275,10 +340,17 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         aux = Frota.get(jList1.getSelectedIndex()).preco + "";
         preco.setText(aux);
 
-        if (Frota.get(jList1.getSelectedIndex()).disponivel == 0)
+        if (Frota.get(jList1.getSelectedIndex()).disponivel == 0){
             disponivel.setText("nao");
-        else
+            jPanel3.setVisible(true);
+            registrar.setVisible(true);
+            dataText.setText(Frota.get(jList1.getSelectedIndex()).dataRetorno);
+        }
+        else{
             disponivel.setText("sim");
+            jPanel3.setVisible(false);
+            registrar.setVisible(false);
+        }
     }//GEN-LAST:event_jList1ValueChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -308,15 +380,83 @@ public class TodaFrota extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
+        // TODO add your handling code here:
+        Frota.get(jList1.getSelectedIndex()).disponivel = 1;
+        
+        disponivel.setText("sim");
+        jPanel3.setVisible(false);
+        registrar.setVisible(false);
+              
+        String hoje = JOptionPane.showInputDialog("Insira a data que o carro foi entregue (dd/mm/aa)");
+        
+        GerenciaPagamentos gp = new GerenciaPagamentos();
+        float preco = 0;
+        float multa = 0;
+        float total = 0;
+        try {
+            preco = gp.calculaPreco(Frota.get(jList1.getSelectedIndex()).dataAlugado, 
+                    Frota.get(jList1.getSelectedIndex()).dataRetorno, 
+                    Frota.get(jList1.getSelectedIndex()).preco);
+            multa = gp.calculaMulta(hoje, Frota.get(jList1.getSelectedIndex()).dataRetorno, Frota.get(jList1.getSelectedIndex()).preco);
+            total = gp.calculaTotal(preco, multa);
+        } catch (ParseException ex) {
+            Logger.getLogger(CarrosDisponveis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(multa > 0){
+            JOptionPane.showMessageDialog(null, "Devolução efetuada com atraso de " + (int)multa/Frota.get(jList1.getSelectedIndex()).preco + " dias, valor da multa: " + multa + " R$");
+            JOptionPane.showMessageDialog(null, "Valor a se pagar: " + total + " R$");
+        }else{
+            JOptionPane.showMessageDialog(null, "Devolução efetuada no praso!\n Valor a se pagar: " + total + " R$");
+        }
+        
+        JOptionPane.showMessageDialog(null, "Devolução Registrada!");
+        
+        
+        //Salva a aleração em arquivo
+        String dados="";
+        
+        for(int i=0;i<numeroCarro;i++)
+        {
+            dados=dados+"placa="+Frota.get(i).placa+'\n';
+            dados=dados+"marca="+Frota.get(i).marca+'\n';
+            dados=dados+"preco="+Frota.get(i).preco+'\n';
+            dados=dados+"KmAndado="+Frota.get(i).kmAndado+'\n';
+            dados=dados+"dataAlugado="+Frota.get(i).dataAlugado+'\n';
+            dados=dados+"dataRetorno="+Frota.get(i).dataRetorno+'\n';
+            dados=dados+"disponivel="+Frota.get(i).disponivel+'\n';
+            dados=dados+"modelo="+Frota.get(i).modelo+'\n';
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("carros.txt"));
+            
+            
+            writer.write(dados);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*
+        Lista= new DefaultListModel<>();
+        for (int i = 0; i < numeroCarro; i++) {
+            Lista.addElement(Frota.get(i).modelo);
+        }
+        jList1.setModel(Lista);
+*/
+    }//GEN-LAST:event_registrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane cor;
+    private javax.swing.JLabel alugado;
+    private javax.swing.JLabel dataText;
     private javax.swing.JTextPane disponivel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -325,9 +465,9 @@ public class TodaFrota extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -336,5 +476,6 @@ public class TodaFrota extends javax.swing.JInternalFrame {
     private javax.swing.JTextPane marca;
     private javax.swing.JTextPane placa;
     private javax.swing.JTextPane preco;
+    private javax.swing.JButton registrar;
     // End of variables declaration//GEN-END:variables
 }

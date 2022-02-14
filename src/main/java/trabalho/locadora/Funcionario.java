@@ -35,7 +35,7 @@ public class Funcionario {
         carrosAlugados=0;
     }
     public void AlugarCarro(carro veiculo,Cliente este){
-        este.setCarroAlugado(veiculo.cor);
+        este.setCarroAlugado(veiculo.dataAlugado);
         carrosAlugados++;
     }
     
