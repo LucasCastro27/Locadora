@@ -1,0 +1,12 @@
+cpf=666
+endereco=wefvevfeqvqv
+preco=1021.5
+dataEntrega=12111
+nome=luiz da silva madrinho
+carroAlugado=213213213
+cpf=mckmak
+endereco=asdvcasvasv
+preco=1245.0
+dataEntrega=fgdbdf
+nome=sadasdandkjasd
+carroAlugado=bdgfbfdb
