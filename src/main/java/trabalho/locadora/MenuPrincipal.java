@@ -4,24 +4,86 @@
  */
 package trabalho.locadora;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author user
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+    Chefe Superior;
+    int nivel=0;
+    ArrayList<Funcionario> contratados;
 
-
-    /**
-     * Creates new form MenuPrincipal
-     */
     public MenuPrincipal() {
-
+        
         initComponents();
+        
+        
+        jMenu1.setVisible(false);
+        jMenu2.setVisible(false);
+        jMenu3.setVisible(false);
+        jMenu4.setVisible(false);
+        jMenuItem13.setVisible(false);
+        contratados=new ArrayList<Funcionario>();
+        String dados = "";    
+        File arquivo = new File("Chefe.txt");
+        try {
+            Scanner leitura = new Scanner(arquivo);
+            while (leitura.hasNextLine()) {
+                dados = dados + leitura.nextLine() + '\n';
+            
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Superior=new Chefe();
+        Superior.ChefeInicia(dados);
+        int contador=0;
+        dados = "";    
+        File arquivu = new File("funcionarios.txt");
+        try {
+            Scanner leitura = new Scanner(arquivu);
+            while (leitura.hasNextLine()) {
+
+            dados = dados + leitura.nextLine() + '\n';
+            contador++;
+            if (contador == 6) {
+                contador = 0;
+                Funcionario contratado = new Funcionario();
+                contratado.FuncionarioInicia(dados);
+                
+                contratados.add(contratado);
+                
+                dados = "";
+                Superior.numeroFuncionarios++;
+            }
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        
+        System.out.println(Superior.CPF + "  " +Superior.Senha);
+        for(int i=0;i<Superior.numeroFuncionarios;i++){
+            System.out.println(contratados.get(i).CPF);
+        }
+        
+        
+        
     }
 
     /**
@@ -64,6 +126,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -151,6 +215,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Funcionarios");
 
         jMenuItem8.setText("Lista de Funcionarios");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem8);
 
         jMenuItem10.setText("Demitir Funcionario");
@@ -219,6 +288,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu9.setText("login");
         jMenu9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jMenu9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem13.setText("Informações");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem13);
+
+        jMenuItem14.setText("Logar");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem14);
+
         jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
@@ -314,6 +405,76 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CadastradosClientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+     
+      JTextField Usuario_Field = new JTextField(25);
+      JTextField Senha_Field = new JTextField(25);
+
+      JPanel myPanel = new JPanel();
+      myPanel.add(new JLabel("CPF:"));
+      myPanel.add(Usuario_Field);
+      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+      myPanel.add(new JLabel("Senha:"));
+      myPanel.add(Senha_Field );
+
+      int result = JOptionPane.showConfirmDialog(null, myPanel, "Login", JOptionPane.OK_CANCEL_OPTION);
+      
+      if (result == JOptionPane.OK_OPTION) {
+        
+          
+         if(Usuario_Field.getText().equals(Superior.CPF) && Senha_Field.getText().equals(Superior.Senha))
+         {
+            System.out.println("Boa");
+            nivel=2;
+         }
+         for(int i =0; i<Superior.numeroFuncionarios; i++){
+            if(contratados.get(i).CPF.equals(Usuario_Field.getText())){
+                if(contratados.get(i).Senha.equals(Senha_Field.getText())){
+                    System.out.println("Boa");
+                    nivel=1;
+                    break;
+                }
+                    
+            }
+         }
+
+      }
+      
+      if(nivel>=1)
+      {
+          jMenuItem13.setVisible(true);
+          jMenu1.setVisible(true);
+          jMenu3.setVisible(true);
+      }
+      if(nivel==2){
+          jMenu2.setVisible(true);
+          jMenu4.setVisible(true); 
+      }
+        
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        ListaFuncionarios lista = null;
+
+        lista = new ListaFuncionarios();
+
+  
+        jDesktopPane1.add(lista);
+        lista.setVisible(true);
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +528,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

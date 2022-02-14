@@ -1,0 +1,6 @@
+salario=5000
+carrosAlugados=1
+saldo=50000
+cnpj=15
+senha=4444
+cpf=298
