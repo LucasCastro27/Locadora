@@ -1,6 +1,12 @@
 cpf=666
 endereco=wefvevfeqvqv
-preco=1021.5
-dataEntrega=12111
+preco=1000.0
+dataEntrega=16/02/2022
 nome=luiz da silva madrinho
-carroAlugado=213213213
+carroAlugado=Fiat Argo
+cpf=123 456
+endereco=rua feia
+preco=2.0
+dataEntrega=18/02/2022
+nome=123 de oliveira 4
+carroAlugado=TVC-003

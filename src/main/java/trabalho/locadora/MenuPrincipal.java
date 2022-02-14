@@ -31,12 +31,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         initComponents();
         
-        
+        /*
         jMenu1.setVisible(false);
         jMenu2.setVisible(false);
         jMenu3.setVisible(false);
         jMenu4.setVisible(false);
         jMenuItem13.setVisible(false);
+        */
         contratados=new ArrayList<Funcionario>();
         String dados = "";    
         File arquivo = new File("Chefe.txt");

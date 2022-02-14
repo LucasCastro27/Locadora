@@ -19,10 +19,13 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
     ArrayList<carro> Frota;
     ArrayList<carro> todosCarros;
     
+    ArrayList<Cliente> Registro;
+    
     DefaultListModel<String> Lista;
     
     int totalCarros = 0;
     int numeroCarro = 0;
+    int numeroClientes = 0;
 
     public CarrosDisponveis() throws FileNotFoundException {
         
@@ -55,6 +58,30 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
 
             }
         }
+        
+        //========================= CLIENTES =========================
+        Registro = new ArrayList<>();
+        File arquivoC = new File("clientes.txt");
+        Scanner leituraC = new Scanner(arquivoC);
+        //Le os Arquivo txt enquanto inicia as variaveis carro
+        String dadosC = "";
+        numeroClientes = 0;
+        int contadorC = 0;
+        while (leituraC.hasNextLine()) {
+            dados = dados + leituraC.nextLine() + '\n';
+            contador++;
+            if (contador == 6) {
+                contador = 0;
+                Cliente pessoa = new Cliente(dados);
+                Registro.add(pessoa);
+                dados = "";
+                numeroClientes++;
+            }
+        }
+        for(int i = 0; i < numeroClientes; i++){
+            System.out.println(Registro.get(i).CPF);
+        }
+        //========================= CLIENTES =========================
         
         //monta um array auxliar para servir de display no gui
         String Modelos[] = new String[numeroCarro];
@@ -236,8 +263,8 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jButton1)
@@ -293,6 +320,22 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
     private void ALUGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ALUGARActionPerformed
         // Altera a disponibilidade de Sim para Não:
         
+        
+        String cpf = JOptionPane.showInputDialog("Insira o CPF do cliente que esta alugando!");
+        Boolean encontrado = false;
+        int j = 0;
+        for(j = 0; j < numeroClientes; j++){
+            System.out.println(Registro.get(j).CPF + " =? " + cpf);
+            if(Registro.get(j).CPF.equals(cpf)){
+                encontrado = true;
+                break;
+            }
+        }
+        if(!encontrado){
+            JOptionPane.showMessageDialog(null, "Cliente não cadastrado!");
+            return;
+        }
+        
         String hoje = JOptionPane.showInputDialog("Insira a data que o carro será alugado (dd/mm/aa)");
         
         
@@ -309,6 +352,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
        int resp =  JOptionPane.showConfirmDialog(null, "O aluguel neste período ficará no valor de " + preco + "R$");
         if(resp == JOptionPane.YES_OPTION){
             JOptionPane.showMessageDialog(null, "Aluguel Efetuado!");
+            Registro.get(j).preco = preco;
+            Registro.get(j).dataEntrega = data;
+            Registro.get(j).carroAlugado = Frota.get(jList1.getSelectedIndex()).modelo;
         }else{
             return;
         }
@@ -317,6 +363,29 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         Frota.get(jList1.getSelectedIndex()).dataRetorno = data;
         Frota.get(jList1.getSelectedIndex()).disponivel = 0;             
         
+        
+        //guarda o estado atual da lita de clientes em um vetor
+        String dadosC="";
+        for(int i=0;i<numeroClientes;i++)
+        {
+            dadosC=dadosC+"cpf="+Registro.get(i).getCPF()+'\n';
+            dadosC=dadosC+"endereco="+Registro.get(i).getEndereço()+'\n';
+            dadosC=dadosC+"preco="+Registro.get(i).getPreco()+'\n';
+            dadosC=dadosC+"dataEntrega="+Registro.get(i).getDataEntrega()+'\n';
+            dadosC=dadosC+"nome="+Registro.get(i).getNome()+'\n';
+            dadosC=dadosC+"carroAlugado="+Registro.get(i).getCarroAlugado()+'\n';
+
+        }
+        
+        //escreve esse vetor no arquivo txt com as novas informações
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("clientes.txt"));
+
+            writer.write(dadosC);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //Salva a aleração em arquivo
         String dados="";
