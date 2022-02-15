@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -313,7 +314,9 @@ public class Cadastros extends javax.swing.JInternalFrame {
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo clientes.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
