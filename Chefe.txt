@@ -1,6 +1,8 @@
 salario=5000
-carrosAlugados=1
+carrosAlugados=0
 saldo=50000
 cnpj=15
 senha=4444
 cpf=298
+nome=Lucas
+endereço=Rua rica

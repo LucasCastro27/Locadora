@@ -17,12 +17,12 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class Clientes extends javax.swing.JInternalFrame {
+public class Contratar extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Clientes
+     * Creates new form Contratar
      */
-    public Clientes() {
+    public Contratar() {
         initComponents();
     }
 
@@ -36,7 +36,6 @@ public class Clientes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,43 +46,36 @@ public class Clientes extends javax.swing.JInternalFrame {
         jScrollPane_cor_ = new javax.swing.JScrollPane();
         nome = new javax.swing.JTextPane();
         jScrollPane_km_ = new javax.swing.JScrollPane();
-        dataEntrega = new javax.swing.JTextPane();
+        Senha = new javax.swing.JTextPane();
         jScrollPane_marca_ = new javax.swing.JScrollPane();
         endereco = new javax.swing.JTextPane();
         jScrollPane_preco_ = new javax.swing.JScrollPane();
-        preco = new javax.swing.JTextPane();
-        jScrollPane_modelo_ = new javax.swing.JScrollPane();
-        carroAlugado = new javax.swing.JTextPane();
+        Salario = new javax.swing.JTextPane();
         jButtonSalvar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel1.setText("Carro Alugado");
-
         jLabel3.setText("CPF:");
 
         jLabel4.setText("Nome:");
 
-        jLabel5.setText("Endereço");
+        jLabel5.setText("Endereço:");
 
-        jLabel6.setText("Data de Entrega:");
+        jLabel6.setText("Senha:");
 
-        jLabel7.setText("Preço:");
+        jLabel7.setText("Salario:");
 
         jScrollPane_placa_.setViewportView(cpf);
 
         jScrollPane_cor_.setViewportView(nome);
 
-        jScrollPane_km_.setViewportView(dataEntrega);
+        jScrollPane_km_.setViewportView(Senha);
 
         jScrollPane_marca_.setViewportView(endereco);
 
-        jScrollPane_preco_.setViewportView(preco);
-
-        jScrollPane_modelo_.setViewportView(carroAlugado);
+        jScrollPane_preco_.setViewportView(Salario);
 
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,20 +96,14 @@ public class Clientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane_cor_)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane_placa_, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jScrollPane_modelo_, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(jScrollPane_km_, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                            .addComponent(jScrollPane_km_, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane_preco_, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
@@ -143,43 +129,36 @@ public class Clientes extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane_marca_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane_modelo_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane_km_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane_km_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jButtonSalvar))
                     .addComponent(jScrollPane_preco_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel2.setText("Insira os dados do novo Client");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE)))
         );
 
         pack();
@@ -189,8 +168,8 @@ public class Clientes extends javax.swing.JInternalFrame {
         //Botão de Salvar escreve a nova alteração do vetor no arquivo .txt
 
         String dados = "";
-        File arquivo = new File("clientes.txt");
-        
+        File arquivo = new File("funcionarios.txt");
+
         //faz uma copia do arquivo de testo
         try {
             Scanner leitura = new Scanner(arquivo);
@@ -201,37 +180,34 @@ public class Clientes extends javax.swing.JInternalFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //adiciona ao final da copia o novo Cliente.
-        dados = dados + "cpf=" + cpf.getText() + '\n';
-        dados = dados + "endereco=" + endereco.getText() + '\n';
-        dados = dados + "preco=" + preco.getText() + '\n';
-        dados = dados + "dataEntrega=" + dataEntrega.getText() + '\n';
-        dados = dados + "nome=" + nome.getText() + '\n';
-        dados = dados + "carroAlugado=" + carroAlugado.getText() + '\n';
+            dados=dados+"salario="+Salario.getText()+'\n';
+            dados=dados+"carrosAlugados="+0+'\n';
+            dados=dados+"senha="+Senha.getText()+'\n';
+            dados = dados + "cpf=" + cpf.getText() + '\n';
+            dados = dados + "nome=" + nome.getText() + '\n';
+            dados = dados + "endereco=" + endereco.getText() + '\n'; 
 
         //escreve no arquivo de testo os dados com o novo cliente adicionado
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("clientes.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("funcionarios.txt"));
 
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane carroAlugado;
+    private javax.swing.JTextPane Salario;
+    private javax.swing.JTextPane Senha;
     private javax.swing.JTextPane cpf;
-    private javax.swing.JTextPane dataEntrega;
     private javax.swing.JTextPane endereco;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -241,10 +217,8 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane_cor_;
     private javax.swing.JScrollPane jScrollPane_km_;
     private javax.swing.JScrollPane jScrollPane_marca_;
-    private javax.swing.JScrollPane jScrollPane_modelo_;
     private javax.swing.JScrollPane jScrollPane_placa_;
     private javax.swing.JScrollPane jScrollPane_preco_;
     private javax.swing.JTextPane nome;
-    private javax.swing.JTextPane preco;
     // End of variables declaration//GEN-END:variables
 }

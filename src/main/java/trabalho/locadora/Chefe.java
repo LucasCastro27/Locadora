@@ -13,8 +13,8 @@ public class Chefe extends Funcionario {
     float saldo;
     String cnpj;
     int numeroFuncionarios;
-    int validado;
-
+    int validado ;
+            
     public void ChefeInicia(String dados) {
         String input = "";
         int codigo = 0;
@@ -96,7 +96,29 @@ public class Chefe extends Funcionario {
                         input = "";
                         
                     }
-                    default -> {
+                    case 6 -> {
+                        while (dados.charAt(i) != '\n') {
+                            i++;
+                            input = input + dados.charAt(i);
+                        }
+                        input = input.substring(0, input.length() - 1);
+                        i++;
+                        this.nome = input;
+                        codigo++;
+                        input = "";
+                        
+                    }
+                    case 7 -> {
+                        while (dados.charAt(i) != '\n') {
+                            i++;
+                            input = input + dados.charAt(i);
+                        }
+                        input = input.substring(0, input.length() - 1);
+                        i++;
+                        this.endereço = input;
+                        codigo++;
+                        input = "";
+                        
                     }
                 }
               
@@ -165,7 +187,7 @@ public class Chefe extends Funcionario {
     }
 
     @Override
-    public void AlmentoSalario() {
-        salario = salario + (saldo / 1000) + +(salario / 100 * carrosAlugados);
+    public float AlmentoSalario() {
+        return saldo / 10000 +(salario / 100 * carrosAlugados);
     }
 }

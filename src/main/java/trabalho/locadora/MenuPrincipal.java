@@ -26,18 +26,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     Chefe Superior;
     int nivel=0;
     ArrayList<Funcionario> contratados;
+    int id;
 
     public MenuPrincipal() {
         
         initComponents();
         
-        /*
+        jMenuItem15.setVisible(false);
         jMenu1.setVisible(false);
         jMenu2.setVisible(false);
         jMenu3.setVisible(false);
         jMenu4.setVisible(false);
         jMenuItem13.setVisible(false);
-        */
+
         contratados=new ArrayList<Funcionario>();
         String dados = "";    
         File arquivo = new File("Chefe.txt");
@@ -119,7 +120,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -129,6 +129,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
@@ -224,9 +225,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem8);
 
-        jMenuItem10.setText("Demitir Funcionario");
-        jMenu2.add(jMenuItem10);
-
         jMenuItem9.setText("Contratar Funcionario");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,9 +285,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu9.setText("login");
-        jMenu9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jMenu9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jMenu9.setText("Login");
+        jMenu9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jMenu9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu9ActionPerformed(evt);
@@ -303,6 +300,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu9.add(jMenuItem13);
+
+        jMenuItem15.setText("Logout");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem15);
 
         jMenuItem14.setText("Logar");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
@@ -344,6 +349,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
+        Contratar contrato;
+        contrato = new Contratar();
+        jDesktopPane1.add(contrato);
+        contrato.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -408,7 +417,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        // TODO add your handling code here:
+        Infos informacoes;
+        
+        if(nivel==2){
+            informacoes = new Infos(Superior.nome,Superior.endereço,Superior.CPF,Superior.cnpj,Superior.saldo,Superior.salario,Superior.carrosAlugados,Superior.AlmentoSalario());
+        }
+        else{
+            informacoes = new Infos(contratados.get(id).nome,contratados.get(id).endereço,contratados.get(id).CPF,"0",0,0,contratados.get(id).carrosAlugados,contratados.get(id).AlmentoSalario());
+        }
+        
+        jDesktopPane1.add(informacoes);
+        informacoes.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -438,6 +457,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 if(contratados.get(i).Senha.equals(Senha_Field.getText())){
                     System.out.println("Boa");
                     nivel=1;
+                    id=i;
                     break;
                 }
                     
@@ -448,11 +468,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
       
       if(nivel>=1)
       {
+          jMenuItem15.setVisible(true);
+          jMenuItem14.setVisible(false);
           jMenuItem13.setVisible(true);
           jMenu1.setVisible(true);
           jMenu3.setVisible(true);
       }
       if(nivel==2){
+          
           jMenu2.setVisible(true);
           jMenu4.setVisible(true); 
       }
@@ -476,6 +499,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+          jMenuItem15.setVisible(false);
+          jMenuItem14.setVisible(true);
+          jMenuItem13.setVisible(false);
+          jMenu1.setVisible(false);
+          jMenu3.setVisible(false);
+          jMenu2.setVisible(false);
+          jMenu4.setVisible(false);
+          
+          nivel=0;
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,11 +562,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
