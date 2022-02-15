@@ -1,5 +1,5 @@
-salario=1000.0
-carrosAlugados=0
+salario=1010.0
+carrosAlugados=1
 senha=4444
 cpf=2056
 nome=Lucas

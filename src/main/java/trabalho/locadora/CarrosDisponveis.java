@@ -20,12 +20,14 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
     ArrayList<carro> todosCarros;
     
     ArrayList<Cliente> Registro;
+    ArrayList<Funcionario> RegistroF; 
     
     DefaultListModel<String> Lista;
     
     int totalCarros = 0;
     int numeroCarro = 0;
     int numeroClientes = 0;
+    int numeroFuncionarios = 0;
 
     public CarrosDisponveis() throws FileNotFoundException {
         
@@ -60,6 +62,34 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         }
         
         //========================= CLIENTES =========================
+        
+        //======================  FUNCIONARIOS =======================
+        RegistroF=new ArrayList<>();
+        int contadorF=0;
+        String dadosF = "";    
+        File arquivu = new File("funcionarios.txt");
+        try {
+            Scanner leituraF = new Scanner(arquivu);
+            while (leituraF.hasNextLine()) {
+
+            dados = dados + leituraF.nextLine() + '\n';
+            contador++;
+            if (contador == 6) {
+                contador = 0;
+                Funcionario contratado = new Funcionario();
+                contratado.FuncionarioInicia(dados);
+                
+                RegistroF.add(contratado);
+                
+                dados = "";
+                numeroFuncionarios++;
+            }
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //======================  FUNCIONARIOS =======================
+        
         Registro = new ArrayList<>();
         File arquivoC = new File("clientes.txt");
         Scanner leituraC = new Scanner(arquivoC);
@@ -142,6 +172,7 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         ALUGAR = new javax.swing.JButton();
 
         setClosable(true);
+        setToolTipText("");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = modelos;
@@ -315,11 +346,27 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             disponivel.setText("nao");
         else
             disponivel.setText("sim");
+        
     }//GEN-LAST:event_jList1ValueChanged
 
     private void ALUGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ALUGARActionPerformed
         // Altera a disponibilidade de Sim para Não:
         
+        
+        String cpfF = JOptionPane.showInputDialog("Insira o CPF do funcionário que esta atendendo!");
+        Boolean encontradoF = false;
+        int x = 0;
+        for(x = 0; x < numeroFuncionarios; x++){
+            System.out.println(RegistroF.get(x).CPF + " =? " + cpfF);
+            if(RegistroF.get(x).CPF.equals(cpfF)){
+                encontradoF = true;
+                break;
+            }
+        }
+        if(!encontradoF){
+            JOptionPane.showMessageDialog(null, "Funcionário não cadastrado!");
+            return;
+        }
         
         String cpf = JOptionPane.showInputDialog("Insira o CPF do cliente que esta alugando!");
         Boolean encontrado = false;
@@ -355,6 +402,7 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             Registro.get(j).preco = preco;
             Registro.get(j).dataEntrega = data;
             Registro.get(j).carroAlugado = Frota.get(jList1.getSelectedIndex()).modelo;
+            RegistroF.get(x).carrosAlugados++;
         }else{
             return;
         }
@@ -405,6 +453,28 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             BufferedWriter writer = new BufferedWriter(new FileWriter("carros.txt"));
             
             
+            writer.write(dados);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //guarda o estado atual da lita de clientes em um vetor
+        dados="";
+        for(int i=0;i<numeroFuncionarios;i++)
+        {
+            dados=dados+"salario="+RegistroF.get(i).AlmentoSalario()+'\n';
+            dados=dados+"carrosAlugados="+RegistroF.get(i).carrosAlugados+'\n';
+            dados=dados+"senha="+RegistroF.get(i).Senha+'\n';
+            dados=dados+"cpf="+RegistroF.get(i).getCPF()+'\n';
+            dados=dados+"nome="+RegistroF.get(i).getNome()+'\n';
+            dados=dados+"endereco="+RegistroF.get(i).getEndereço()+'\n';        
+        }
+
+        //escreve esse vetor no arquivo txt com as novas informações
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("funcionarios.txt"));
+
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
