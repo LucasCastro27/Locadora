@@ -64,6 +64,10 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         } else {
             disponivel.setText("sim");
         }
+        
+        
+        registrar.setVisible(false);
+        jPanel3.setVisible(false);
 
     }
 

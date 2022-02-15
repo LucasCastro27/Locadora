@@ -190,9 +190,7 @@ public class CompraDeCarro extends javax.swing.JInternalFrame {
             
         }
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo carros.txt não pode ser acessado!");
             Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
 
         
