@@ -98,7 +98,6 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         registrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -155,10 +154,13 @@ public class TodaFrota extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Preço");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Organizar por:");
-
-        jButton3.setText("Alfabetica");
 
         registrar.setText("REGISTRAR DEVOLUÇÃO");
         registrar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,15 +216,15 @@ public class TodaFrota extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,8 +289,7 @@ public class TodaFrota extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -370,11 +371,12 @@ public class TodaFrota extends javax.swing.JInternalFrame {
             System.out.println(Frota.get(i).kmAndado);
         }
         
-        
+        Lista= new DefaultListModel<>();
         String Placas[] = new String[numeroCarro];
         for (int i = 0; i < numeroCarro; i++) {
-            Placas[i] = Frota.get(i).modelo;
+            Lista.addElement(Frota.get(i).modelo);
         }
+        jList1.setModel(Lista);
         placas = Placas;
         
 
@@ -450,6 +452,29 @@ public class TodaFrota extends javax.swing.JInternalFrame {
 */
     }//GEN-LAST:event_registrarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int n = Frota.size();
+        carro temp;
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                if (Frota.get(j - 1).preco < Frota.get(j).preco) {
+                    //Code to swap the elements
+                    temp = Frota.get(j - 1);
+                    Frota.set(j - 1, Frota.get(j));
+                    Frota.set(j,temp);
+                }
+            }
+        }
+        
+        Lista= new DefaultListModel<>();
+        String Placas[] = new String[numeroCarro];
+        for (int i = 0; i < numeroCarro; i++) {
+            Lista.addElement(Frota.get(i).modelo);
+        }
+        jList1.setModel(Lista);
+        placas = Placas;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alugado;
@@ -457,7 +482,6 @@ public class TodaFrota extends javax.swing.JInternalFrame {
     private javax.swing.JTextPane disponivel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
