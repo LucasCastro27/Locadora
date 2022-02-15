@@ -1,8 +1,8 @@
-salario=5000
+salario=4444
 carrosAlugados=0
-saldo=50000
-cnpj=15
+Saldo=4444
+cnpj=4444
 senha=4444
-cpf=298
-nome=Lucas
-endereço=Rua rica
+cpf=4444
+nome=44444
+endereco=44444

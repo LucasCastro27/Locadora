@@ -23,15 +23,17 @@ import javax.swing.JTextField;
  * @author user
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+
     Chefe Superior;
-    int nivel=0;
+    int nivel = 0;
     ArrayList<Funcionario> contratados;
     int id;
+    int controle = 0;
 
     public MenuPrincipal() {
-        
+
         initComponents();
-        
+
         jMenuItem15.setVisible(false);
         jMenu1.setVisible(false);
         jMenu2.setVisible(false);
@@ -39,54 +41,60 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu4.setVisible(false);
         jMenuItem13.setVisible(false);
 
-        contratados=new ArrayList<Funcionario>();
-        String dados = "";    
+        contratados = new ArrayList<Funcionario>();
+        String dados = "";
         File arquivo = new File("Chefe.txt");
+
         try {
             Scanner leitura = new Scanner(arquivo);
             while (leitura.hasNextLine()) {
                 dados = dados + leitura.nextLine() + '\n';
-            
-        }
+            }
+
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+            CadastroIinicial cadastrando;
+            cadastrando = new CadastroIinicial();
+            jDesktopPane1.add(cadastrando);
+            cadastrando.setVisible(true);
+            arquivo = new File("Chefe.txt");
+            controle++;
+
         }
-        
-        Superior=new Chefe();
-        Superior.ChefeInicia(dados);
-        int contador=0;
-        dados = "";    
+        if (controle == 0) {
+            Superior = new Chefe();
+            Superior.ChefeInicia(dados);
+        }
+
+        int contador = 0;
+        dados = "";
         File arquivu = new File("funcionarios.txt");
         try {
             Scanner leitura = new Scanner(arquivu);
             while (leitura.hasNextLine()) {
 
-            dados = dados + leitura.nextLine() + '\n';
-            contador++;
-            if (contador == 6) {
-                contador = 0;
-                Funcionario contratado = new Funcionario();
-                contratado.FuncionarioInicia(dados);
-                
-                contratados.add(contratado);
-                
-                dados = "";
-                Superior.numeroFuncionarios++;
+                dados = dados + leitura.nextLine() + '\n';
+                contador++;
+                if (contador == 6) {
+                    contador = 0;
+                    Funcionario contratado = new Funcionario();
+                    contratado.FuncionarioInicia(dados);
+
+                    contratados.add(contratado);
+
+                    dados = "";
+                    Superior.numeroFuncionarios++;
+                }
             }
-        }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        
-        
-        System.out.println(Superior.CPF + "  " +Superior.Senha);
-        for(int i=0;i<Superior.numeroFuncionarios;i++){
-            System.out.println(contratados.get(i).CPF);
+        if (controle == 0) {
+            System.out.println(Superior.CPF + "  " + Superior.Senha);
+            for (int i = 0; i < Superior.numeroFuncionarios; i++) {
+                System.out.println(contratados.get(i).CPF);
+            }
         }
-        
-        
-        
+
     }
 
     /**
@@ -337,7 +345,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        CarrosDisponveis Carros = null;     
+        CarrosDisponveis Carros = null;
         try {
             Carros = new CarrosDisponveis();
         } catch (FileNotFoundException ex) {
@@ -384,7 +392,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        
+
         CompraDeCarro telaCompra;
         telaCompra = new CompraDeCarro();
         jDesktopPane1.add(telaCompra);
@@ -401,7 +409,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CadastroClientes = new Clientes();
         jDesktopPane1.add(CadastroClientes);
         CadastroClientes.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -418,68 +426,80 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         Infos informacoes;
-        
-        if(nivel==2){
-            informacoes = new Infos(Superior.nome,Superior.endereço,Superior.CPF,Superior.cnpj,Superior.saldo,Superior.salario,Superior.carrosAlugados,Superior.AlmentoSalario());
+
+        if (nivel == 2) {
+            informacoes = new Infos(Superior.nome, Superior.endereço, Superior.CPF, Superior.cnpj, Superior.saldo, Superior.salario, Superior.carrosAlugados, Superior.AlmentoSalario());
+        } else {
+            informacoes = new Infos(contratados.get(id).nome, contratados.get(id).endereço, contratados.get(id).CPF, "0", 0, 0, contratados.get(id).carrosAlugados, contratados.get(id).AlmentoSalario());
         }
-        else{
-            informacoes = new Infos(contratados.get(id).nome,contratados.get(id).endereço,contratados.get(id).CPF,"0",0,0,contratados.get(id).carrosAlugados,contratados.get(id).AlmentoSalario());
-        }
-        
+
         jDesktopPane1.add(informacoes);
         informacoes.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-     
-      JTextField Usuario_Field = new JTextField(25);
-      JTextField Senha_Field = new JTextField(25);
-
-      JPanel myPanel = new JPanel();
-      myPanel.add(new JLabel("CPF:"));
-      myPanel.add(Usuario_Field);
-      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-      myPanel.add(new JLabel("Senha:"));
-      myPanel.add(Senha_Field );
-
-      int result = JOptionPane.showConfirmDialog(null, myPanel, "Login", JOptionPane.OK_CANCEL_OPTION);
-      
-      if (result == JOptionPane.OK_OPTION) {
-        
-          
-         if(Usuario_Field.getText().equals(Superior.CPF) && Senha_Field.getText().equals(Superior.Senha))
-         {
-            System.out.println("Boa");
-            nivel=2;
-         }
-         for(int i =0; i<Superior.numeroFuncionarios; i++){
-            if(contratados.get(i).CPF.equals(Usuario_Field.getText())){
-                if(contratados.get(i).Senha.equals(Senha_Field.getText())){
-                    System.out.println("Boa");
-                    nivel=1;
-                    id=i;
-                    break;
+        String dados = "";
+        File arquivo1 = new File("Chefe.txt");
+        if (controle == 1) {
+            try {
+                Scanner leitura = new Scanner(arquivo1);
+                while (leitura.hasNextLine()) {
+                    dados = dados + leitura.nextLine() + '\n';
                 }
-                    
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-         }
 
-      }
-      
-      if(nivel>=1)
-      {
-          jMenuItem15.setVisible(true);
-          jMenuItem14.setVisible(false);
-          jMenuItem13.setVisible(true);
-          jMenu1.setVisible(true);
-          jMenu3.setVisible(true);
-      }
-      if(nivel==2){
-          
-          jMenu2.setVisible(true);
-          jMenu4.setVisible(true); 
-      }
-        
+            Superior = new Chefe();
+            Superior.ChefeInicia(dados);
+        }
+
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n" + Superior.CPF + "  " + Superior.Senha);
+        JTextField Usuario_Field = new JTextField(25);
+        JTextField Senha_Field = new JTextField(25);
+
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("CPF:"));
+        myPanel.add(Usuario_Field);
+        myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        myPanel.add(new JLabel("Senha:"));
+        myPanel.add(Senha_Field);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel, "Login", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+
+            if (Usuario_Field.getText().equals(Superior.CPF) && Senha_Field.getText().equals(Superior.Senha)) {
+                System.out.println("Boa");
+                nivel = 2;
+            }
+            for (int i = 0; i < Superior.numeroFuncionarios; i++) {
+                if (contratados.get(i).CPF.equals(Usuario_Field.getText())) {
+                    if (contratados.get(i).Senha.equals(Senha_Field.getText())) {
+                        System.out.println("Boa");
+                        nivel = 1;
+                        id = i;
+                        break;
+                    }
+
+                }
+            }
+
+        }
+
+        if (nivel >= 1) {
+            jMenuItem15.setVisible(true);
+            jMenuItem14.setVisible(false);
+            jMenuItem13.setVisible(true);
+            jMenu1.setVisible(true);
+            jMenu3.setVisible(true);
+        }
+        if (nivel == 2) {
+
+            jMenu2.setVisible(true);
+            jMenu4.setVisible(true);
+        }
+
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
@@ -491,25 +511,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         lista = new ListaFuncionarios();
 
-  
         jDesktopPane1.add(lista);
         lista.setVisible(true);
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-          jMenuItem15.setVisible(false);
-          jMenuItem14.setVisible(true);
-          jMenuItem13.setVisible(false);
-          jMenu1.setVisible(false);
-          jMenu3.setVisible(false);
-          jMenu2.setVisible(false);
-          jMenu4.setVisible(false);
-          
-          nivel=0;
+        jMenuItem15.setVisible(false);
+        jMenuItem14.setVisible(true);
+        jMenuItem13.setVisible(false);
+        jMenu1.setVisible(false);
+        jMenu3.setVisible(false);
+        jMenu2.setVisible(false);
+        jMenu4.setVisible(false);
+
+        nivel = 0;
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     /**

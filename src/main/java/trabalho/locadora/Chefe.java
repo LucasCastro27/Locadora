@@ -10,10 +10,10 @@ package trabalho.locadora;
  */
 public class Chefe extends Funcionario {
 
-    float saldo;
-    String cnpj;
-    int numeroFuncionarios;
-    int validado ;
+    static float saldo;
+    static String cnpj;
+    static int numeroFuncionarios;
+    static int validado ;
             
     public void ChefeInicia(String dados) {
         String input = "";
