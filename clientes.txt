@@ -1,9 +1,9 @@
 cpf=666
 endereco=wefvevfeqvqv
-preco=1000.0
-dataEntrega=16/02/2022
+preco=5005.0
+dataEntrega=20/02/2022
 nome=luiz da silva madrinho
-carroAlugado=Fiat Argo
+carroAlugado=Chevrolet Onix
 cpf=123 456
 endereco=rua feia
 preco=2.0
