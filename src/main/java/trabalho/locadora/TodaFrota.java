@@ -401,7 +401,9 @@ public class TodaFrota extends javax.swing.JInternalFrame {
             multa = gp.calculaMulta(hoje, Frota.get(jList1.getSelectedIndex()).dataRetorno, Frota.get(jList1.getSelectedIndex()).preco);
             total = gp.calculaTotal(preco, multa);
         } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque a data é inválida!");
             Logger.getLogger(CarrosDisponveis.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         
         if(multa > 0){
@@ -435,7 +437,9 @@ public class TodaFrota extends javax.swing.JInternalFrame {
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo carros.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         /*
         Lista= new DefaultListModel<>();

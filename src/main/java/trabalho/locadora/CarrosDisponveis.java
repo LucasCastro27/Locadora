@@ -86,7 +86,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             }
         }
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo funcionarios.txt não pode ser acessado!");
             Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         //======================  FUNCIONARIOS =======================
         
@@ -393,7 +395,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
         try {
             preco = gp.calculaPreco(hoje, data, Frota.get(jList1.getSelectedIndex()).preco);
         } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque a data é inválida!");
             Logger.getLogger(CarrosDisponveis.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         
        int resp =  JOptionPane.showConfirmDialog(null, "O aluguel neste período ficará no valor de " + preco + "R$");
@@ -432,7 +436,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             writer.write(dadosC);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo clientes.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         
         //Salva a aleração em arquivo
@@ -456,7 +462,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo carros.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         
         //guarda o estado atual da lita de clientes em um vetor
@@ -478,7 +486,9 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo funcionarios.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         
         Frota.remove(jList1.getSelectedIndex());

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -178,7 +179,9 @@ public class Contratar extends javax.swing.JInternalFrame {
 
             }
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo funcionarios.txt não pode ser acessado!");
             Logger.getLogger(CompraDeCarro.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
 
         //adiciona ao final da copia o novo Cliente.
@@ -196,7 +199,9 @@ public class Contratar extends javax.swing.JInternalFrame {
             writer.write(dados);
             writer.close();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "A operação não pode ser concluída porque o arquivo funcionarios.txt não pode ser acessado!");
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
