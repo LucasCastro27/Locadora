@@ -210,6 +210,8 @@ public class CompraDeCarro extends javax.swing.JInternalFrame {
         } catch (IOException ex) {
             Logger.getLogger(GaragemCarros.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 

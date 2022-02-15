@@ -116,9 +116,9 @@ public class Funcionario extends Pessoa {
     }
     
     //bonus que pode ser solicitado por um funcionario receber almento baseado em seu rendimento 
-    public void AlmentoSalario(){
-        salario=salario+(salario/100*carrosAlugados);
-        carrosAlugados=0;
+    public float AlmentoSalario(){
+        return salario/100*carrosAlugados;
+ 
     }
     public void AlugarCarro(carro veiculo,Cliente este){
         este.setCarroAlugado(veiculo.dataAlugado);
