@@ -32,6 +32,10 @@ public class GerenciaPagamentos implements Pagamentos{
         long diffInMillies = Math.abs(entrega.getTime() - alugado.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         
+        if(diff < 0){
+            return 0;
+        }
+        
         return (int)diff * valor;
     }
     public float calculaMulta(String dataEntregou, String dataEntrega, float valor) throws ParseException{
