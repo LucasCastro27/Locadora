@@ -79,7 +79,7 @@ public class CarrosDisponveis extends javax.swing.JInternalFrame {
                 Funcionario contratado = new Funcionario();
                 contratado.FuncionarioInicia(dados);
                 
-                RegistroF.add(contratado);
+                RegistroF.add(contratado); //adiciona a lista
                 
                 dados = "";
                 numeroFuncionarios++;
