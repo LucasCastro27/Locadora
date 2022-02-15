@@ -4,12 +4,17 @@
  */
 package trabalho.locadora;
 
+import java.awt.Component;
+import static java.lang.constant.ConstantDescs.NULL;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class Infos extends javax.swing.JInternalFrame {
 
+    float bonus;
     /**
      * Creates new form Infos
      * @param nome
@@ -27,7 +32,7 @@ public class Infos extends javax.swing.JInternalFrame {
             jPanel2.setVisible(false);
         }
         
-        
+        this.bonus=bonus;
         jTextPane1.setText(nome);
         jTextPane2.setText(endereço);
         jTextPane3.setText(cpf);
@@ -222,7 +227,8 @@ public class Infos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       
+       JOptionPane.showMessageDialog(null,"Seu bonus é: "+bonus);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
